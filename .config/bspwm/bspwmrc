@@ -1,0 +1,39 @@
+#!/bin/sh
+
+# Set the border width
+bspc config border_width 2
+
+# Set the gap size
+bspc config gap 10
+
+# Set the window focus behavior
+bspc config focus_follows_pointer true
+
+# Set the default desktop layout
+bspc monitor -d 1 2 3 4 5
+
+# Set the initial window state
+bspc rule -a 'Gimp' state=floating
+
+# Set the border color
+bspc config border_color '#FF0000'  # Change to your desired color
+
+# Set Alacritty as the default terminal
+bspc config terminal alacritty
+
+# Set Thunar as the default file explorer
+bspc config file_manager thunar
+
+# Set the key bindings for moving windows
+# The super key (usually the Windows key) is used in combination with the arrow keys or the hjkl keys to move the focused window in the corresponding direction.
+bspc keybind super + {h,j,k,l} node -f {west,south,north,east}
+bspc keybind super + {Left,Down,Up,Right} node -f {west,south,north,east}
+
+# Set the default font
+bspc config font 'Fira Code'
+
+# autostart
+exec sxhkd
+exec polybar
+exec variety
+exec picom

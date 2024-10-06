@@ -1,0 +1,94 @@
+#!/bin/bash
+
+## Basic Keybindings for sxhkd
+
+# Launch terminal
+super + Return
+    alacritty
+
+# Close focused window
+super + q
+    bspc node -c
+
+# Move focused window
+super + Shift + {h,j,k,l}
+    bspc node -z {0,-20,20,0}
+
+# Resize focused window
+super + Control + {h,j,k,l}
+    bspc node -z {0,-20,20,0}
+
+# Switch to next workspace
+super + {Right, Left}
+    bspc desktop -f {next,prev}
+
+# Switch to previous workspace
+super + {1,2,3,4,5}
+    bspc desktop -f ^{1,2,3,4,5}
+
+# Reload sxhkd
+super + Escape
+    pkill -USR1 -x sxhkd
+
+# Restart bspwm (additional hotkey)
+super + Shift + R
+    bspc wm -r
+
+# Reload sxhkd (additional hotkey)
+super + Shift + Escape
+    pkill -USR1 -x sxhkd
+
+# Quit bspwm (additional hotkey)
+super + Shift + Q
+    bspc quit
+
+# Move focused window to workspace 4 (additional hotkey)
+super + Shift + 4
+    bspc window -m 4
+
+# Move focused window to workspace 5 (additional hotkey)
+super + Shift + 5
+    bspc window -m 5
+
+# Switch focused window to tiling mode (additional hotkey)
+super + T
+    bspc node -t tiled
+
+# Switch focused window to fullscreen mode (additional hotkey)
+super + F
+    bspc node -t fullscreen
+
+# Switch focused window to floating mode (additional hotkey)
+super + Shift + T
+    bspc node -t floating
+
+## Keybindings for applications
+
+# Launch file explorer
+super + e
+    thunar
+
+# Launch web browser
+super + b
+    { chromium-browser || firefox || google-chrome || brave-browser || xdg-open || vivaldi || opera }
+
+# Launch dmenu or rofi
+super + d
+    if command -v rofi &> /dev/null; then
+        rofi -show drun
+    elif command -v dmenu &> /dev/null; then
+        dmenu_run
+    else
+        echo "Neither dmenu nor rofi is installed."
+    fi
+
+# Volume control
+super + Up
+    pactl set-sink-volume @DEFAULT_SINK@ +5%
+
+super + Down
+    pactl set-sink-volume @DEFAULT_SINK@ -5%
+
+super + m
+    pactl set-sink-mute @DEFAULT_SINK@ toggle
+
